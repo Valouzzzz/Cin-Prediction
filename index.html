@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Prédiction Film</title>
+<title>Movie Prediction</title>
 <link rel="icon" type="image/png" href="icone.png">
 <script src="directors.js"></script>
 <script src="actors.js"></script>
@@ -134,19 +134,19 @@ input {
 
 <body>
 
-<h1>🎬 Prédiction Film</h1>
+<h1>🎬 Movie Prediction</h1>
 
 <div class="main">
 
 <div class="card">
 
 <div class="field">
-<label>Titre</label>
+<label>Title</label>
 <input id="titre">
 </div>
 
 <div class="field">
-<label>Durée (en minutes)</label>
+<label>Runtime (minutes)</label>
 <input id="duree" type="number" value="120">
 </div>
 
@@ -155,26 +155,26 @@ input {
 <input id="budget" type="number" value="10000000">
 </div>
 
-<!-- REALISATEURS -->
+<!-- DIRECTORS -->
 <div class="field">
-<label>Réalisateurs</label>
-<input id="rechercheRealisateurs" placeholder="Rechercher...">
+<label>Directors</label>
+<input id="rechercheRealisateurs" placeholder="Search...">
 <div id="realisateursSelect" class="dropdown"></div>
 <div id="realisateursTags" class="tags"></div>
 </div>
 
-<!-- ACTEURS -->
+<!-- CAST -->
 <div class="field">
-<label>Casting</label>
-<input id="rechercheActeurs" placeholder="Rechercher...">
+<label>Cast</label>
+<input id="rechercheActeurs" placeholder="Search...">
 <div id="acteursSelect" class="dropdown"></div>
 <div id="acteursTags" class="tags"></div>
 </div>
 
-<!-- PAYS -->
+<!-- COUNTRIES -->
 <div class="field">
-<label>Pays</label>
-<input id="recherchePays" placeholder="Rechercher...">
+<label>Countries</label>
+<input id="recherchePays" placeholder="Search...">
 <div id="paysSelect" class="dropdown"></div>
 <div id="paysTags" class="tags"></div>
 </div>
@@ -182,32 +182,32 @@ input {
 <!-- GENRES -->
 <div class="field">
 <label>Genres</label>
-<input id="rechercheGenres" placeholder="Rechercher...">
+<input id="rechercheGenres" placeholder="Search...">
 <div id="genresSelect" class="dropdown"></div>
 <div id="genresTags" class="tags"></div>
 </div>
 
 <div class="field">
-<label>Date de sortie</label>
+<label>Release Date</label>
 <input id="dateSortie" type="date">
 </div>
 
-<button id="valide">Prédire</button>
+<button id="valide">Predict</button>
 
 </div>
 
 <div class="card result">
-<h2>Note</h2>
+<h2>Rating</h2>
 <p id="note">...</p>
 
-<h2>Recette</h2>
+<h2>Revenue</h2>
 <p id="Recette">...</p>
 </div>
 
 </div>
 
 <script>
-function setupAutocomplete(inputId, dropdownId, tagsId, dataList) {
+function setupAutocomplete(inputId, dropdownId, tagsId, dataList, sendMap = null) {
     const input = document.getElementById(inputId);
     const dropdown = document.getElementById(dropdownId);
     const tagsContainer = document.getElementById(tagsId);
@@ -257,18 +257,93 @@ function setupAutocomplete(inputId, dropdownId, tagsId, dataList) {
         });
     }
 
-    return () => selected.join(', ');
+    return () => {
+        if (!sendMap) {
+            return selected.join(', ');
+        }
+
+        return selected.map(item => sendMap[item] || item).join(', ');
+    };
 }
 
-/* données */
-const listePays = ['United States of America', 'Australia', 'Algeria', 'Egypt', 'France', 'United Kingdom', 'Canada', 'Germany', 'Italy', 'Japan', 'Thailand', 'Denmark', 'Mexico', 'Czech Republic', 'Hong Kong', 'Belgium', 'Estonia', 'Finland', 'Sweden', 'Ukraine', 'Russia', 'Monaco', 'Spain', 'South Korea', 'Poland', 'Brazil', 'Luxembourg', '', 'China', 'Indonesia', 'Saudi Arabia', 'Israel', 'Morocco', 'Afghanistan', 'India', 'New Zealand', 'Switzerland', 'Holy See', 'Soviet Union', 'Hungary', 'Serbia', 'Romania', 'United Arab Emirates', 'Netherlands', 'Yugoslavia', 'Portugal', 'South Africa', 'Norway', 'Ireland', 'Turkey', 'Argentina', 'Austria', 'Latvia', 'Lithuania', 'Puerto Rico', 'Kenya', 'Cyprus', 'Greece', 'Bahamas', 'Taiwan', 'Bulgaria', 'Colombia', 'Vietnam', 'Iran', 'Bangladesh', 'Tunisia', 'Chile', 'Singapore', 'Qatar', 'Iceland', 'Czechoslovakia', 'Cambodia', 'Philippines', 'Serbia and Montenegro', 'Syrian Arab Republic', 'Malaysia', 'Dominican Republic', 'Peru', 'Liechtenstein', 'Venezuela', 'Lebanon', 'Slovakia', 'Uzbekistan', 'Guadaloupe', 'East Germany', 'Cuba', 'Georgia', 'Mauritius', 'Zimbabwe', 'Solomon Islands', 'Belarus', 'Ecuador', 'Senegal', 'Angola', 'Congo', 'Bolivia', 'Aruba', 'Haiti', 'Netherlands Antilles', 'Bosnia and Herzegovina', 'Jamaica', 'Uruguay', 'Libyan Arab Jamahiriya', 'Kuwait', "Cote D'Ivoire", 'Botswana', 'Costa Rica', 'Nicaragua', 'Martinique', 'Panama', 'St. Kitts and Nevis', 'North Korea', 'Montenegro', 'Burkina Faso', 'Mali', 'Ghana', 'Sri Lanka', 'Namibia', 'Barbados', 'Croatia', 'Malta', 'Slovenia', 'Guinea', 'Macedonia', 'Kazakhstan', 'Albania', 'Palestinian Territory', 'Malawi', 'Jordan', 'Central African Republic', 'Pakistan', 'Ethiopia', 'French Polynesia', 'New Caledonia', 'Nigeria', 'Kosovo', 'Iraq', 'Uganda', 'Mongolia', 'Cook Islands', 'Bhutan', 'Armenia', 'Cameroon', 'Bahrain', 'Tanzania', 'Myanmar', 'Madagascar', 'Rwanda', 'Cayman Islands', 'Guatemala', 'Macao', 'Liberia', 'Honduras', 'Timor-Leste', 'Chad', 'El Salvador', 'Paraguay', 'Turks and Caicos Islands', 'Papua New Guinea', 'Faeroe Islands', 'Zambia', 'Mauritania', 'Nepal', 'Gabon', 'Azerbaijan', 'Yemen', 'Greenland', 'Moldova', 'Oman', 'Sudan'];  
-const listeGenres = ['Comédie', 'Animation', 'Documentaire', 'Crime', 'Drame', 'Action', 'Histoire', 'Musique', 'Romance', 'Mystère', 'Thriller', 'Western', 'Science-Fiction', 'Familial', 'Fantastique', 'Aventure', 'Horreur', 'Guerre', 'Téléfilm', ''];
+/* countries */
+const listePays = ['United States of America', 'Australia', 'Algeria', 'Egypt', 'France', 'United Kingdom', 'Canada', 'Germany', 'Italy', 'Japan', 'Thailand', 'Denmark', 'Mexico', 'Czech Republic', 'Hong Kong', 'Belgium', 'Estonia', 'Finland', 'Sweden', 'Ukraine', 'Russia', 'Monaco', 'Spain', 'South Korea', 'Poland', 'Brazil', 'Luxembourg', '', 'China', 'Indonesia', 'Saudi Arabia', 'Israel', 'Morocco', 'Afghanistan', 'India', 'New Zealand', 'Switzerland', 'Holy See', 'Soviet Union', 'Hungary', 'Serbia', 'Romania', 'United Arab Emirates', 'Netherlands', 'Yugoslavia', 'Portugal', 'South Africa', 'Norway', 'Ireland', 'Turkey', 'Argentina', 'Austria', 'Latvia', 'Lithuania', 'Puerto Rico', 'Kenya', 'Cyprus', 'Greece', 'Bahamas', 'Taiwan', 'Bulgaria', 'Colombia', 'Vietnam', 'Iran', 'Bangladesh', 'Tunisia', 'Chile', 'Singapore', 'Qatar', 'Iceland', 'Czechoslovakia', 'Cambodia', 'Philippines', 'Serbia and Montenegro', 'Syrian Arab Republic', 'Malaysia', 'Dominican Republic', 'Peru', 'Liechtenstein', 'Venezuela', 'Lebanon', 'Slovakia', 'Uzbekistan', 'Guadaloupe', 'East Germany', 'Cuba', 'Georgia', 'Mauritius', 'Zimbabwe', 'Solomon Islands', 'Belarus', 'Ecuador', 'Senegal', 'Angola', 'Congo', 'Bolivia', 'Aruba', 'Haiti', 'Netherlands Antilles', 'Bosnia and Herzegovina', 'Jamaica', 'Uruguay', 'Libyan Arab Jamahiriya', 'Kuwait', "Cote D'Ivoire", 'Botswana', 'Costa Rica', 'Nicaragua', 'Martinique', 'Panama', 'St. Kitts and Nevis', 'North Korea', 'Montenegro', 'Burkina Faso', 'Mali', 'Ghana', 'Sri Lanka', 'Namibia', 'Barbados', 'Croatia', 'Malta', 'Slovenia', 'Guinea', 'Macedonia', 'Kazakhstan', 'Albania', 'Palestinian Territory', 'Malawi', 'Jordan', 'Central African Republic', 'Pakistan', 'Ethiopia', 'French Polynesia', 'New Caledonia', 'Nigeria', 'Kosovo', 'Iraq', 'Uganda', 'Mongolia', 'Cook Islands', 'Bhutan', 'Armenia', 'Cameroon', 'Bahrain', 'Tanzania', 'Myanmar', 'Madagascar', 'Rwanda', 'Cayman Islands', 'Guatemala', 'Macao', 'Liberia', 'Honduras', 'Timor-Leste', 'Chad', 'El Salvador', 'Paraguay', 'Turks and Caicos Islands', 'Papua New Guinea', 'Faeroe Islands', 'Zambia', 'Mauritania', 'Nepal', 'Gabon', 'Azerbaijan', 'Yemen', 'Greenland', 'Moldova', 'Oman', 'Sudan'];
+
+/* genres shown in English */
+const listeGenresEN = [
+    'Comedy',
+    'Animation',
+    'Documentary',
+    'Crime',
+    'Drama',
+    'Action',
+    'History',
+    'Music',
+    'Romance',
+    'Mystery',
+    'Thriller',
+    'Western',
+    'Science Fiction',
+    'Family',
+    'Fantasy',
+    'Adventure',
+    'Horror',
+    'War',
+    'TV Movie'
+];
+
+/* genres sent in French */
+const genresFRMap = {
+    'Comedy': 'Comédie',
+    'Animation': 'Animation',
+    'Documentary': 'Documentaire',
+    'Crime': 'Crime',
+    'Drama': 'Drame',
+    'Action': 'Action',
+    'History': 'Histoire',
+    'Music': 'Musique',
+    'Romance': 'Romance',
+    'Mystery': 'Mystère',
+    'Thriller': 'Thriller',
+    'Western': 'Western',
+    'Science Fiction': 'Science-Fiction',
+    'Family': 'Familial',
+    'Fantasy': 'Fantastique',
+    'Adventure': 'Aventure',
+    'Horror': 'Horreur',
+    'War': 'Guerre',
+    'TV Movie': 'Téléfilm'
+};
 
 /* init */
-const getPays = setupAutocomplete('recherchePays','paysSelect','paysTags',listePays);
-const getGenres = setupAutocomplete('rechercheGenres','genresSelect','genresTags',listeGenres);
-const getRealisateurs = setupAutocomplete('rechercheRealisateurs','realisateursSelect','realisateursTags',listeRealisateurs);
-const getActeurs = setupAutocomplete('rechercheActeurs','acteursSelect','acteursTags',listeActeurs);
+const getPays = setupAutocomplete(
+    'recherchePays',
+    'paysSelect',
+    'paysTags',
+    listePays
+);
+
+const getGenres = setupAutocomplete(
+    'rechercheGenres',
+    'genresSelect',
+    'genresTags',
+    listeGenresEN,
+    genresFRMap
+);
+
+const getRealisateurs = setupAutocomplete(
+    'rechercheRealisateurs',
+    'realisateursSelect',
+    'realisateursTags',
+    listeRealisateurs
+);
+
+const getActeurs = setupAutocomplete(
+    'rechercheActeurs',
+    'acteursSelect',
+    'acteursTags',
+    listeActeurs
+);
 
 /* API */
 document.getElementById('valide').addEventListener('click', async function(event) {
@@ -281,7 +356,7 @@ document.getElementById('valide').addEventListener('click', async function(event
         realisateurs: getRealisateurs(),
         casting: getActeurs(),
         pays: getPays(),
-        genres: getGenres(),
+        genres: getGenres(), // sent in French
         date_sortie: document.getElementById('dateSortie').value
     };
 
@@ -296,10 +371,10 @@ document.getElementById('valide').addEventListener('click', async function(event
         const note = parseFloat(result.note);
 
         let texte = '';
-        if (note <= 3) texte = "Pas aimé 😬";
-        else if (note <= 5) texte = "Moyen 🤔";
-        else if (note <= 7) texte = "Bien 👍";
-        else if (note <= 9) texte = "Très bien 🔥";
+        if (note <= 3) texte = "Bad 😬";
+        else if (note <= 5) texte = "Average 🤔";
+        else if (note <= 7) texte = "Good 👍";
+        else if (note <= 9) texte = "Very Good 🔥";
         else texte = "Excellent 🚀";
 
         document.getElementById('note').innerHTML = texte + " (" + note + "/10)";
