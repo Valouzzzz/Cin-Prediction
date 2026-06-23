@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Movie Prediction</title>
+
+<style>
+
+body{
+    margin:0;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#0f172a,#1e293b);
+    font-family:Segoe UI;
+    color:white;
+}
+
+/* ===== CAROUSEL WRAPPER ===== */
+.carousel{
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+/* ===== BUTTONS ===== */
+.btn{
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    border:none;
+    cursor:pointer;
+    background:#1e293b;
+    color:white;
+    font-size:18px;
+    transition:.3s;
+}
+
+.btn:hover{
+    background:#38bdf8;
+    transform:scale(1.1);
+}
+
+/* ===== CARD ===== */
+.card{
+    width:320px;
+    border-radius:15px;
+    overflow:hidden;
+    background:rgba(255,255,255,0.05);
+    backdrop-filter:blur(10px);
+    box-shadow:0 10px 30px rgba(0,0,0,0.4);
+
+    transition:all .4s ease;
+    transform:scale(1);
+}
+
+/* ===== POSTER ===== */
+.poster{
+    width:100%;
+    height:450px;
+    object-fit:cover;
+}
+
+/* ===== TEXT ===== */
+.card-content{
+    padding:15px;
+}
+
+.title{
+    text-align:center;
+    font-size:1.3rem;
+    font-weight:bold;
+}
+
+/* ===== RATING ===== */
+.rating-header{
+    display:flex;
+    justify-content:space-between;
+    margin-top:10px;
+}
+
+.rating-value{
+    color:#facc15;
+    font-weight:bold;
+}
+
+.rating-bar{
+    height:10px;
+    background:rgba(255,255,255,0.15);
+    border-radius:20px;
+    overflow:hidden;
+    margin-top:6px;
+}
+
+.rating-fill{
+    height:100%;
+    background:linear-gradient(90deg,#22c55e,#84cc16);
+    transition:.4s;
+}
+
+/* ===== SIDE PREVIEW EFFECT ===== */
+.side{
+    opacity:0.35;
+    transform:scale(0.85);
+    filter:blur(2px);
+}
+
+.active{
+    opacity:1;
+    transform:scale(1);
+    filter:blur(0);
+}
+
+.top-btn{
+    position:fixed;
+    top:15px;
+    left:15px;
+
+    padding:8px 14px;
+
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(10px);
+
+    border:1px solid rgba(255,255,255,0.15);
+    border-radius:10px;
+
+    color:white;
+    text-decoration:none;
+    font-size:14px;
+
+    transition:0.3s;
+}
+
+.top-btn:hover{
+    background:#38bdf8;
+    transform:scale(1.05);
+    box-shadow:0 0 15px #38bdf8;
+}
+
+</style>
+</head>
+
+<body>
+<a class="top-btn" href="index.html">Prediction</a>
+<div class="carousel">
+
+    <button class="btn" onclick="prevMovie()">◀</button>
+
+    <div class="card side" id="leftCard"></div>
+
+    <div class="card active" id="mainCard"></div>
+
+    <div class="card side" id="rightCard"></div>
+
+    <button class="btn" onclick="nextMovie()">▶</button>
+
+</div>
+
+<script>
+
+const movies = [
+
+{
+    title:"Interstellar",
+    poster:"https://mir-s3-cdn-cf.behance.net/project_modules/hd/8d8f28105415493.619ded067937d.jpg",
+    rating:7.8
+},
+
+{
+    title:"Inception",
+    poster:"https://i.pinimg.com/736x/be/69/95/be6995e706e3af8fdce6aab2d04ecef6.jpg",
+    rating:8.9
+},
+
+{
+    title:"Dune",
+    poster:"https://vice-press.com/cdn/shop/products/dune-bella-grace-movie-poster.jpg?v=1681287576&width=1024",
+    rating:8.3
+},
+
+{
+    title:"The Batman",
+    poster:"https://static.posters.cz/image/1300/the-batman-2022-i122127.jpg",
+    rating:7.4
+}
+
+];
+
+let current = 0;
+
+function getIndex(i){
+    return (i + movies.length) % movies.length;
+}
+
+function renderCard(movie){
+    return `
+        <img class="poster" src="${movie.poster}">
+        <div class="card-content">
+
+            <div class="title">${movie.title}</div>
+
+            <div class="rating-header">
+                <span>Note prédite</span>
+                <span class="rating-value">${movie.rating.toFixed(1)} / 10</span>
+            </div>
+
+            <div class="rating-bar">
+                <div class="rating-fill" style="width:${movie.rating*10}%"></div>
+            </div>
+
+        </div>
+    `;
+}
+
+function update(){
+
+    const left = getIndex(current - 1);
+    const right = getIndex(current + 1);
+
+    document.getElementById("leftCard").innerHTML =
+        renderCard(movies[left]);
+
+    document.getElementById("mainCard").innerHTML =
+        renderCard(movies[current]);
+
+    document.getElementById("rightCard").innerHTML =
+        renderCard(movies[right]);
+}
+
+function nextMovie(){
+    current = getIndex(current + 1);
+    animate();
+}
+
+function prevMovie(){
+    current = getIndex(current - 1);
+    animate();
+}
+
+function animate(){
+
+    const main = document.getElementById("mainCard");
+
+    main.style.transform = "scale(0.9)";
+    main.style.opacity = "0.5";
+
+    setTimeout(()=>{
+        update();
+        main.style.transform = "scale(1)";
+        main.style.opacity = "1";
+    },200);
+
+}
+
+update();
+
+</script>
+
+</body>
+</html>
+
+
+
