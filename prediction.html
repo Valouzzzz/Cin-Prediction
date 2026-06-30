@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cin&Prediction</title>
+<title>Movie Prediction</title>
 <link rel="icon" type="image/png" href="icon.png">
 <style>
 
@@ -20,6 +20,10 @@ body {
     padding: 20px 0;
     box-sizing: border-box;
     overflow-x: hidden;
+}
+
+#Titre {
+    margin-top: 0%;
 }
 
 /* ===== CAROUSEL WRAPPER ===== */
@@ -220,12 +224,59 @@ body {
     }
 }
 
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #0f172a;
+    padding: 10px 20px; /* Ajout d'un petit padding latéral */
+    display: flex;
+    flex-direction: row; /* Alignement horizontal */
+    align-items: center; /* Centrage vertical des éléments */
+    justify-content: space-between; /* Espace les éléments aux extrémités */
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    box-sizing: border-box; /* Important pour que le padding ne dépasse pas la largeur */
+    z-index: 1000;
+}
+
+/* Groupe image + texte à gauche */
+.footer-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+footer img {
+    height: 30px;
+    width: 30px;
+    opacity: 0.8;
+}
+
+footer p {
+    margin: 0;
+    font-size: 0.9em;
+    opacity: 0.6;
+}
+
+footer a {
+    color: #38bdf8;
+    text-decoration: none;
+    font-size: 0.9em;
+    transition: 0.3s;
+}
+
+footer a:hover {
+    text-decoration: underline;
+    color: white;
+}
 </style>
 </head>
 
 <body>
 <a class="top-btn" href="index.html">Prediction</a>
-
+<h1 id="Titre">Cin&Prediction</h1>
+<br>
 <div class="carousel">
     <button class="btn" onclick="prevMovie()">◀</button>
     <div class="card side" id="leftCard"></div>
@@ -238,7 +289,16 @@ body {
     <button class="mobile-btn" onclick="prevMovie()">◀</button>
     <button class="mobile-btn" onclick="nextMovie()">▶</button>
 </div>
-
+<br><br>
+<!--
+<footer>
+    <div class="footer-left">
+        <img id="imgFooter" src="icon.png">
+        <p>Cin&Prediction</p>
+    </div>
+    <a href="https://mail.google.com/">Contact</a>
+</footer> 
+-->
 <script>
 const movies = [
     {
