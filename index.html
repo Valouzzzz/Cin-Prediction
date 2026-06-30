@@ -20,11 +20,6 @@ body {
     align-items: center;
 }
 
-h1 {
-    text-align: center;
-    margin: 20px;
-}
-
 .main {
     display: flex;
     flex-wrap: wrap;
@@ -143,18 +138,6 @@ input {
         width: 84%;
         max-width: 400px;
     }
-
-    #card2 {
-        margin-bottom: 50px;
-    }
-
-    footer {
-        position: relative;
-        bottom: auto;
-        width: 100%;
-        padding: 15px;
-        margin-top: 20px;
-    }
 }
 
 .top-btn {
@@ -179,50 +162,39 @@ input {
     box-shadow: 0 0 15px #38bdf8;
 }
 
-footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background-color: #0f172a;
-    padding: 10px 20px; /* Ajout d'un petit padding latéral */
+#header {
     display: flex;
-    flex-direction: row; /* Alignement horizontal */
-    align-items: center; /* Centrage vertical des éléments */
-    justify-content: space-between; /* Espace les éléments aux extrémités */
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    box-sizing: border-box; /* Important pour que le padding ne dépasse pas la largeur */
-    z-index: 1000;
-}
-
-.footer-left {
-    display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 15px;
-}
-
-footer img {
-    height: 30px;
-    width: 30px;
-    opacity: 0.8;
-}
-
-footer p {
+    justify-content: center;
     margin: 0;
-    font-size: 0.9em;
-    opacity: 0.6;
+    text-align: center;
 }
 
-footer a {
-    color: #38bdf8;
-    text-decoration: none;
-    font-size: 0.9em;
-    transition: 0.3s;
+#logo {
+    width: 100px;
+    height: auto;
+    /* margin-bottom: 5px; */
+    border-radius: 50%;
+    object-fit: contain;
 }
 
-footer a:hover {
-    text-decoration: underline;
-    color: white;
+h1 {
+    margin: 0;
+    font-size: 2.5em;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+#header:hover #logo {
+    transform: scale(1.05); /* Légèrement agrandi */
+    transition: transform 0.3s ease;
+}
+
+#header:hover h1 {
+    color: #38bdf8; /* Changement de couleur */
+    transition: color 0.3s ease;
 }
 </style>
 </head>
@@ -230,7 +202,10 @@ footer a:hover {
 <body>
 <a class="top-btn" href="prediction.html">HOME</a>
 <br>
-<h1>🎬 Movie Prediction</h1>
+<div id="header">
+    <img id="logo" src="icon.png" alt="Logo Cin&Prediction">
+    <h1>Cin&Prediction</h1>
+</div>
 
 <div class="main">
 
@@ -299,14 +274,6 @@ footer a:hover {
 <h2>Revenue</h2>
 <p id="Recette">...</p>
 </div>
-
-<footer>
-    <div class="footer-left">
-        <img id="imgFooter" src="icon.png">
-        <p>Cin&Prediction</p>
-    </div>
-    <a href="https://mail.google.com/">Contact</a>
-</footer>
 
 </div>
 
