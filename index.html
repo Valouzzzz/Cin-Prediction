@@ -34,6 +34,7 @@ h1 {
     width: 100%;
     max-width: 1200px;
     box-sizing: border-box;
+    margin-bottom: 50px;
 }
 
 .card {
@@ -142,6 +143,18 @@ input {
         width: 84%;
         max-width: 400px;
     }
+
+    #card2 {
+        margin-bottom: 50px;
+    }
+
+    footer {
+        position: relative;
+        bottom: auto;
+        width: 100%;
+        padding: 15px;
+        margin-top: 20px;
+    }
 }
 
 .top-btn {
@@ -164,6 +177,52 @@ input {
     background: #38bdf8;
     transform: scale(1.05);
     box-shadow: 0 0 15px #38bdf8;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #0f172a;
+    padding: 10px 20px; /* Ajout d'un petit padding latéral */
+    display: flex;
+    flex-direction: row; /* Alignement horizontal */
+    align-items: center; /* Centrage vertical des éléments */
+    justify-content: space-between; /* Espace les éléments aux extrémités */
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    box-sizing: border-box; /* Important pour que le padding ne dépasse pas la largeur */
+    z-index: 1000;
+}
+
+.footer-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+footer img {
+    height: 30px;
+    width: 30px;
+    opacity: 0.8;
+}
+
+footer p {
+    margin: 0;
+    font-size: 0.9em;
+    opacity: 0.6;
+}
+
+footer a {
+    color: #38bdf8;
+    text-decoration: none;
+    font-size: 0.9em;
+    transition: 0.3s;
+}
+
+footer a:hover {
+    text-decoration: underline;
+    color: white;
 }
 </style>
 </head>
@@ -233,13 +292,21 @@ input {
 
 </div>
 
-<div class="card result">
+<div class="card result" id="card2">
 <h2>Rating</h2>
 <p id="note">...</p>
 
 <h2>Revenue</h2>
 <p id="Recette">...</p>
 </div>
+
+<footer>
+    <div class="footer-left">
+        <img id="imgFooter" src="icon.png">
+        <p>Cin&Prediction</p>
+    </div>
+    <a href="https://mail.google.com/">Contact</a>
+</footer>
 
 </div>
 
