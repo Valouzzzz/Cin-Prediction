@@ -270,12 +270,38 @@ footer a:hover {
     text-decoration: underline;
     color: white;
 }
+
+.title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    text-align: center;
+    margin: 0;
+}
+
+.title span {
+    font-size: clamp(1.8rem, 5vw, 3rem);
+}
+
+.logo {
+    width: clamp(40px, 8vw, 80px);
+    height: clamp(40px, 8vw, 80px);
+    object-fit: contain;
+}
 </style>
 </head>
 
 <body>
 <a class="top-btn" href="index.html">Prediction</a>
-<h1 id="Titre">Cin&Prediction</h1>
+<div id="header">
+    <h1 class="title">
+        <img class="logo" src="icon.png" alt="Logo">
+        <span>Cin&Prediction</span>
+        <img class="logo" src="icon.png" alt="Logo">
+    </h1>
+</div>
 <br>
 <div class="carousel">
     <button class="btn" onclick="prevMovie()">◀</button>
